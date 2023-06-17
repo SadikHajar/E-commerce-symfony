@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1>Votre Panier</h1>
+    {% if isEmpty %}
+        <p>Votre panier est vide !</p>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantite</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in dataPanier %}
+                <tr>
+                    <td>{{ element.produit.name }}</td>
+                    <td>{{ element.produit.price }}$</td>
+                    <td>{{ element.quantite }}</td>
+                    <td>{{ element.produit.price * element.quantite }}$</td>
+                    <td>
+                    <a href="{{path("cart_add",{id:element.produit.id})}}" class="btn btn-success">
+                     +</a>
+                     <a href="{{path("cart_remove",{id:element.produit.id})}}" class="btn btn-warning">
+                     Remove
+                     </a>
+                     <a href="{{path("cart_delete",{id:element.produit.id})}}" class="btn btn-danger">
+                     -
+                     </a>
+
+                     </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre Panier est Vide!!</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+        <td colspan="3">Total</td>
+        <td class="text-end">{{total}}$</td>
+        <td></td>
+
+        </tr>
+        </tfoot>
+    </table>
+    {% endif %}
+{% endblock %}

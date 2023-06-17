@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details de {{productss.name}}{% endblock %}
+
+{% block body %}
+<main class="container">
+<section class="row">
+<div class="col-12">
+
+<h1> {{productss.name}}</h1>
+</div>
+<div class="col-6">
+<img src="{{ asset('assets/uploads/products/mini/300x300-') ~ productss.images.0.name }}" class="d-block w-100" alt="...">
+
+</div>
+
+
+
+
+
+ 
+<div class="col-6">
+<p>{{productss.description}}</p>
+<p>Categorie:{{productss.categories.name}}</p>
+<p>Prix:{{productss.price/100 }}$</p>
+{% if productss.stock >0 %}
+<a href="{{path("cart_add",{id:productss.id})}}" class="btn btn-success">Ajouter au panier</a>
+{% else %}
+<p class="text-danger">Temporairement  en rupture de stock</p>
+{% endif %}
+</div>
+
+</section>
+</main>
+{% endblock %}
